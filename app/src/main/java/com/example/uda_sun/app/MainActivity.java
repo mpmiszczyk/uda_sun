@@ -4,6 +4,11 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
 import android.view.*;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -39,6 +44,11 @@ public class MainActivity extends ActionBarActivity {
 
     /**
      * A placeholder fragment containing a simple view.
+
+
+
+
+
      */
     public static class PlaceholderFragment extends Fragment {
 
@@ -48,7 +58,27 @@ public class MainActivity extends ActionBarActivity {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-            return inflater.inflate(R.layout.fragment_main, container, false);
+            View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+
+            String[] fakeDate = {
+                    "Today --> sunny",
+                    "Tomorrow --> cloudy",
+                    "Day after --> gonna rain"
+            };
+
+            ArrayList<String> weekForcast =
+                    new ArrayList<String>(Arrays.asList(fakeDate));
+
+            ArrayAdapter<String> forcastDateAdapter = new ArrayAdapter<String>(getActivity(),
+                    R.layout.list_item_forecast,
+                    R.id.list_item_forecast_text_view,
+                    weekForcast);
+
+            ListView listView = (ListView) rootView.findViewById(R.id.list_view_forcast);
+
+            listView.setAdapter(forcastDateAdapter);
+
+            return rootView;
         }
     }
 }
